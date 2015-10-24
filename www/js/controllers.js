@@ -49,10 +49,9 @@ angular.module('starter.controllers', [])
         alert('Example of infowindow with ng-click')
       };
 
+      var markers = [];
       var searchLocations = function() {
         var tag = Categories.getActive();
-
-
         $http({
           method: 'GET',
           headers : {"content-type" : "application/json"},
@@ -62,7 +61,9 @@ angular.module('starter.controllers', [])
             // when the response is available
             var geocoder = new google.maps.Geocoder(); 
             var res = response.data;
+            markers = [];
             for(var i=0;i < res.length; i++){
+            var content = res[i].description;
             tag = Categories.getIcon(res[i].tags[0]);
               var title = res[i].title;
                 geocoder.geocode({
@@ -75,7 +76,10 @@ angular.module('starter.controllers', [])
                       var coords = new google.maps.LatLng(
                         results[0]['geometry']['location'].lat(),
                         results[0]['geometry']['location'].lng()
-                        );                        
+                        );  
+                         infowindow = new google.maps.InfoWindow({
+                         content: content
+                        });                     
                         // Set marker also
                         marker = new MarkerWithLabel({
                           position: coords, 
@@ -84,10 +88,14 @@ angular.module('starter.controllers', [])
                           icon: ' ',
                           labelContent: '<span class="'+tag+'" data-pack="default" data-tags="talk"></span>',
                           labelAnchor: new google.maps.Point(22, 50),
-                          labelClass: "labels"                        
-                          });
-                          
-                        }
+                          labelClass: "labels",
+                          html: content                       
+                        });
+                        google.maps.event.addListener(marker, 'click', function() {
+                          infowindow.setContent(this.html)
+                          infowindow.open($scope.map,this);
+                        });
+                      }
                     }
                 );
               }
