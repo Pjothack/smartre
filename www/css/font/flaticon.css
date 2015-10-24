@@ -1,0 +1,52 @@
+@font-face {
+	font-family: "Flaticon";
+	src: url("flaticon.eot");
+	src: url("flaticon.eot#iefix") format("embedded-opentype"),
+	url("flaticon.woff") format("woff"),
+	url("flaticon.ttf") format("truetype"),
+	url("flaticon.svg") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
+	font-family: Flaticon;
+        font-size: 20px;
+font-style: normal;
+margin-left: 20px;
+}.flaticon-bears1:before {
+	content: "\e000";
+}
+.flaticon-beer34:before {
+	content: "\e001";
+}
+.flaticon-building180:before {
+	content: "\e002";
+}
+.flaticon-cocktail2:before {
+	content: "\e003";
+}
+.flaticon-cutlery23:before {
+	content: "\e004";
+}
+.flaticon-equalizer12:before {
+	content: "\e005";
+}
+.flaticon-hot51:before {
+	content: "\e006";
+}
+.flaticon-shake1:before {
+	content: "\e007";
+}
+.flaticon-soccer19:before {
+	content: "\e008";
+}
+.flaticon-theater8:before {
+	content: "\e009";
+}
+.flaticon-water68:before {
+	content: "\e00a";
+}
+.flaticon-weightlifting4:before {
+	content: "\e00b";
+}
