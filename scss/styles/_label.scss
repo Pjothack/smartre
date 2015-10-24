@@ -1,7 +1,12 @@
+$clear: lighten($balanced,35%);
+$medium: lighten($positive,30%);
+$crowded: lighten($assertive,20%);
+
+
 .labels {
      background-color: $light;
-     font-family: "Lucida Grande", "Arial", sans-serif;
-     font-size: 20px;
+     color: #000;
+     font-size: 18px;
      font-weight: bold;
      text-align: center;
      border-radius:50%;
@@ -9,20 +14,52 @@
      height:36px;
      line-height:36px;
      white-space: nowrap;
+     overflow: visible !important;
 
-     /*
-     &:before {
-          z-index: 11;
-          display: inline-block;
-          width: 36px;
-          height: 36px;
-          border: 2px solid red;
-          background: transparent;
-          position: absolute;
-          top:0%;
-          left:0%;
-          content:'';
+     .activity {
+          color: #FFF;
+          text-align: center;
+          width: 17px;
+          height: 17px;
+          line-height: 17px;
           border-radius: 50%;
+          background:$clear;
+          display: inline-block;
+          position: absolute;
+          right: -4px;
+          top:-11px;
+          font-size: 11px;
      }
-     */
+
+     &.medium {
+          .activity {background: $medium;}
+          .progress .circle_animation{stroke:$medium;}
+     }
+     &.dark {
+          .activity {background: $crowded;}
+          .progress .circle_animation{stroke:$crowded;}
+     }
    }
+
+
+@keyframes round {
+  to {
+    stroke-dashoffset: 50;
+  }
+}
+
+svg.progress {
+   -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    display: block;
+    position: absolute;
+    top:0;
+}
+
+.circle_animation {
+  stroke-dasharray: 100; /* this value is the pixel crcumference of the circle */
+  stroke-dashoffset: 100;
+  transition: stroke-dashoffset 0.3s ease;
+  stroke:$clear;
+  stroke-width:2;
+}

@@ -63,6 +63,15 @@ angular.module('starter.controllers', [])
                       tag = Categories.getIcon(markers[i].tags[0]);
                       var title = markers[i].title;
                       var rand = Math.floor(Math.random() * 100) + 1;
+
+                      var light = 'light';
+                      if(rand>25 && rand<50){
+                        light = 'medium';
+                      }
+                      else if(rand>50){
+                        light = 'dark';
+                      }
+
                       // Get center
                       var coords = new google.maps.LatLng(
                         results[0]['geometry']['location'].lat(),
@@ -74,9 +83,9 @@ angular.module('starter.controllers', [])
                           map: $scope.map,
                           title: title,
                           icon: ' ',
-                          labelContent: '<span class="'+tag+'" data-pack="default" data-tags="talk"></span><svg class="progress" width="36" height="36" xmlns="http://www.w3.org/2000/svg"><g><circle id="circle" class="circle_animation" r="16" cy="18" cx="18" style="stroke-dashoffset:'+rand+'" stroke-width="2" stroke="#69aff4" fill="none"/></g></svg>',
+                          labelContent: '<span class="'+tag+'"></span><span class="ion-person-stalker activity"></span><svg class="progress" width="36" height="36" xmlns="http://www.w3.org/2000/svg"><g><circle id="circle" class="circle_animation" r="16" cy="18" cx="18" style="stroke-dashoffset:'+(100-rand)+'"  fill="none"/></g></svg>',
                           labelAnchor: new google.maps.Point(22, 50),
-                          labelClass: "labels",
+                          labelClass: "labels "+light,
                           html: content                       
                         });
                         google.maps.event.addListener(marker, 'click', function() {
