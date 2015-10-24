@@ -9,7 +9,9 @@
             ng-click="toggleCategory(category.name)"
             ></a>
         </span>
-        <a class="button button-light button-round button-toggle ion-android-funnel" ng-class="{open:buttonsVisible}" ng-click="buttonsVisible=!buttonsVisible"></a>
+        <a class="button button-light button-round button-toggle ion-android-funnel" ng-class="{open:buttonsVisible}" ng-click="buttonsVisible=!buttonsVisible">
+          <span class="badge badget-balanced" ng-if="selectedCategories.length">{{selectedCategories.length}}</span>
+        </a>
       </div>
     </ion-content>
 </ion-view>
