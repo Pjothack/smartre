@@ -84,7 +84,7 @@ angular.module('starter.controllers', [])
                           title: title,
                           icon: ' ',
                           labelContent: '<span class="'+tag+'"></span><span class="ion-person-stalker activity"></span><svg class="progress" width="36" height="36" xmlns="http://www.w3.org/2000/svg"><g><circle id="circle" class="circle_animation" r="16" cy="18" cx="18" style="stroke-dashoffset:'+(100-rand)+'"  fill="none"/></g></svg>',
-                          labelAnchor: new google.maps.Point(22, 50),
+                          labelAnchor: new google.maps.Point(18, 18),
                           labelClass: "labels "+light,
                           html: content                       
                         });
