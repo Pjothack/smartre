@@ -62,8 +62,11 @@ angular.module('starter.controllers', [])
                       var content = markers[i].description;
                       tag = Categories.getIcon(markers[i].tags[0]);
                       var title = markers[i].title;
+                      
+                      // this is still random
                       var rand = Math.floor(Math.random() * 100) + 1;
 
+                      // define activity class
                       var light = 'light';
                       if(rand>25 && rand<50){
                         light = 'medium';
@@ -71,6 +74,12 @@ angular.module('starter.controllers', [])
                       else if(rand>50){
                         light = 'dark';
                       }
+
+                      // define label class
+                      var className = "labels "+light;
+                      // sale class, should come from markers[i].sale or something
+                      if(Math.random() > 0.5)
+                        className += ' has-sale';
 
                       // Get center
                       var coords = new google.maps.LatLng(
@@ -83,9 +92,9 @@ angular.module('starter.controllers', [])
                           map: $scope.map,
                           title: title,
                           icon: ' ',
-                          labelContent: '<span class="'+tag+'"></span><span class="ion-person-stalker activity"></span><svg class="progress" width="36" height="36" xmlns="http://www.w3.org/2000/svg"><g><circle id="circle" class="circle_animation" r="16" cy="18" cx="18" style="stroke-dashoffset:'+(100-rand)+'"  fill="none"/></g></svg>',
+                          labelContent: '<span class="'+tag+'"></span><span class="ion-person-stalker activity icon"></span><span class="sale icon">%</span><svg class="progress" width="36" height="36" xmlns="http://www.w3.org/2000/svg"><g><circle id="circle" class="circle_animation" r="16" cy="18" cx="18" style="stroke-dashoffset:'+(100-rand)+'"  fill="none"/></g></svg>',
                           labelAnchor: new google.maps.Point(18, 18),
-                          labelClass: "labels "+light,
+                          labelClass: className,
                           html: content                       
                         });
                         google.maps.event.addListener(marker, 'click', function() {
