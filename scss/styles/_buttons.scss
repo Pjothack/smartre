@@ -1,0 +1,61 @@
+
+  @keyframes showButtons {
+      from {transform:translate3d(0,100%,0) scale(0);opacity:0;}
+      to { transform:translate3d(0,0,0) scale(1);opacity:1; }
+  }
+
+
+.button-set {
+  position:absolute;
+  left:20px;
+  bottom:20px;
+  z-index:10;
+  width:52px;
+  text-align:center; 
+  
+  .button-set__action-buttons {
+    //opacity:0;
+    transition: opacity 0.2s ease;
+    .button {
+      /*
+      transition: transform 0.2s ease;
+      */
+      margin-bottom:10px;
+      opacity:0;
+      transform:translate3d(0,100%,0) scale(0);    
+      animation: showButtons 0.15s ease;
+      animation-fill-mode: forwards;
+      
+      $button-count:6;
+      
+      @for $i from 1 through $button-count{
+        &:nth-child(#{ $button-count - $i}) { 
+            animation-delay: ($i)*40ms;
+        }
+      }
+
+    }
+  }
+}
+
+.button.button-round {
+  width:52px;
+  height:52px;
+  padding:0;
+  line-height:52px;
+  border-radius:50%;
+  border:none;
+  position:relative;
+  box-shadow:0 1px 1.5px 0 rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.24);
+  &.button-round--small {
+    width:36px;
+    height:36px;
+    min-height:0;
+    min-width:0;
+    line-height:36px;
+    font-size:20px;
+    
+    
+    
+  }
+}
