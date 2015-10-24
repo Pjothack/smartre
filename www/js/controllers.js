@@ -13,6 +13,19 @@ angular.module('starter.controllers', [])
 
   
 })
+.controller("LoginController", function($scope, $cordovaOauth, $localStorage, $location) {
+ 
+    $scope.login = function() {
+        $cordovaOauth.facebook("1648290115460220", ["email", "read_stream", "user_website", "user_location", "user_relationships"]).then(function(result) {
+            $localStorage.accessToken = result.access_token;
+            $location.path("/map");
+        }, function(error) {
+            alert("There was a problem signing in!  See the console for logs");
+            console.log(error);
+        });
+    };
+ 
+})
 
 .controller('MapCtrl', function($scope, $ionicLoading, $compile, $http, corsURL, Categories,MapSettings) {
       function initialize() {
