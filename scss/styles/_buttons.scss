@@ -33,6 +33,11 @@
             animation-delay: ($i)*40ms;
         }
       }
+     // color: $balanced;
+      &.activated {
+        background: #000;
+        color:#FFF;
+      }
 
     }
   }
