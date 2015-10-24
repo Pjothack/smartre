@@ -55,6 +55,9 @@ angular.module('starter')
     },
     getActive:function(){
       return $localStorage.categories;
+    },
+    getIcon:function(id){
+      return _.result(_.findWhere(categories, { 'name': id }), 'icon') || 'ion-ios-location';
     }
 
 	}
