@@ -9296,6 +9296,8 @@ a.button {
   height: 36px;
   line-height: 36px;
   white-space: nowrap; }
+  .labels:nth-child(2) {
+    transform: scale(1.5); }
 
 @keyframes showButtons {
   from {
@@ -9308,7 +9310,7 @@ a.button {
 .button-set {
   position: absolute;
   left: 15px;
-  bottom: 30px;
+  bottom: 35px;
   z-index: 10;
   width: 52px;
   text-align: center; }
@@ -9335,9 +9337,16 @@ a.button {
         animation-delay: 200ms; }
       .button-set .button-set__action-buttons .button:nth-child(0) {
         animation-delay: 240ms; }
-      .button-set .button-set__action-buttons .button.activated {
+      .button-set .button-set__action-buttons .button.selected {
         background: #000;
         color: #FFF; }
+
+.button-toggle:before {
+  transform: rotate(0);
+  transition: transform 0.15s ease; }
+
+.button-toggle.open:before {
+  transform: rotate(-180deg); }
 
 .button.button-round {
   width: 52px;

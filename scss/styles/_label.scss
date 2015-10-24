@@ -9,4 +9,8 @@
      height:36px;
      line-height:36px;
      white-space: nowrap;
+
+     &:nth-child(2) {
+          transform: scale(1.5);
+     }
    }

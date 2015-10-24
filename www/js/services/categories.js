@@ -22,7 +22,7 @@ angular.module('starter')
         },
         {
           id:2,
-          icon:'ion-ios-football-outline',
+          icon:'ion-ios-football',
           name:'sports',
           title:'Sport'
         },
@@ -34,7 +34,7 @@ angular.module('starter')
         },
         {
           id:4,
-          icon:'ion-ios-cart-outline',
+          icon:'ion-ios-cart',
           name:'shop',
           title:"Shop"
         }

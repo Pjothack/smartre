@@ -4,12 +4,12 @@
       <div class="button-set">
         <span class="button-set__action-buttons" ng-if="buttonsVisible">
             <a ng-repeat="category in categories track by category.id"
-            class="button button-light button-round button-round--small "
-            ng-class="category.icon"
+            class="button button-light button-round button-round--small {{category.icon}}"
+            ng-class="{'selected':selectedCategories.indexOf(category.name)>=0}"
             ng-click="toggleCategory(category.name)"
             ></a>
         </span>
-        <a class="button button-light button-round ion-android-funnel" ng-click="buttonsVisible=!buttonsVisible"></a>
+        <a class="button button-light button-round button-toggle ion-android-funnel" ng-class="{open:buttonsVisible}" ng-click="buttonsVisible=!buttonsVisible"></a>
       </div>
     </ion-content>
 </ion-view>

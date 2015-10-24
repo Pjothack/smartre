@@ -106,14 +106,6 @@ angular.module('starter.controllers', [])
             for(var i=0;i < res.length; i++){
             markers.push(res[i]);
             geocoder.geocode( {'address': res[i].contact_info.address}, onGeocodeComplete(i));
-               /* geocoder.geocode({
-                    address : res[i].contact_info.address, 
-                    //region: 'no' 
-                  },
-                    function(results, status) {
-                    
-                    }
-                );*/
               }
             }, function errorCallback(response) {
             // called asynchronously if an error occurs
@@ -122,10 +114,21 @@ angular.module('starter.controllers', [])
       };
       $scope.categories = Categories.all();
 
+
+
       $scope.toggleCategory = function(id){
         Categories.toggle(id);
         searchLocations();
+        updateActive();
       }
+
+      var updateActive = function(){
+        $scope.selectedCategories = Categories.getActive();
+        console.log($scope.selectedCategories );
+      }
+
+      updateActive();
+      searchLocations();
 
       
     });
