@@ -125,7 +125,7 @@ angular.module('starter.controllers', [])
         $http({
           method: 'GET',
           headers : {"content-type" : "application/json"},
-          url: corsURL+'http://visittampere.fi/api/search?limit=50&offset=0&tag=['+_.map(tag,function(item){return '"'+item+'"' })+']&type=location'
+          url: corsURL+'http://tittle.eu-gb.mybluemix.net/locations'
             }).then(function successCallback(response) {
             // this callback will be called asynchronously
             // when the response is available
@@ -136,8 +136,47 @@ angular.module('starter.controllers', [])
                   content: "content"
             });
             for(var i=0;i < res.length; i++){
-            markers.push(res[i]);
-            geocoder.geocode( {'address': res[i].contact_info.address}, onGeocodeComplete(i));
+                  markers.push(res[i]);
+                  content = res[i].title +'<br>' +res[i].description;
+                  tag = Categories.getIcon(res[i].category);
+                  var title = res[i].title;
+                  // this is still random
+                  var rand = Math.floor(Math.random() * 100) + 1;
+
+                  // define activity class
+                  var light = 'light';
+                  if(rand>25 && rand<50){
+                    light = 'medium';
+                  }
+                  else if(rand>50){
+                    light = 'dark';
+                  }
+
+                  // define label class
+                  var className = "labels "+light;
+                  // sale class, should come from markers[i].sale or something
+                  if(Math.random() > 0.5)
+                    className += ' has-sale';
+                  // Get center
+                  var coords = new google.maps.LatLng(
+                    res[i].latitude,
+                    res[i].longitude
+                    );        
+                    // Set marker also
+                    marker = new MarkerWithLabel({
+                      position: coords, 
+                      map: $scope.map,
+                      title: title,
+                      icon: ' ',
+                      labelContent: '<span class="'+tag+'"></span><span class="ion-person-stalker activity icon"></span><span class="sale icon">%</span><svg class="progress" width="36" height="36" xmlns="http://www.w3.org/2000/svg"><g><circle id="circle" class="circle_animation" r="16" cy="18" cx="18" style="stroke-dashoffset:'+(100-rand)+'"  fill="none"/></g></svg>',
+                      labelAnchor: new google.maps.Point(18, 18),
+                      labelClass: className,
+                      html: content                       
+                    });
+                    google.maps.event.addListener(marker, 'click', function() {
+                      infowindow.setContent(this.html)
+                      infowindow.open($scope.map,this);
+                    });
               }
             }, function errorCallback(response) {
             // called asynchronously if an error occurs

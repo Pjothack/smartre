@@ -50,5 +50,5 @@ angular.module('starter', ['ionic', 'starter.controllers','ngStorage','ngCordova
       }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/login');
+  $urlRouterProvider.otherwise('/app/map');
 });
