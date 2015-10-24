@@ -35,7 +35,7 @@
       }
      // color: $balanced;
       &.selected {
-        background: #000;
+        background: #FFC751;
         color:#FFF;
       }
 
@@ -69,16 +69,13 @@
     min-width:0;
     line-height:36px;
     font-size:20px;
-    
-    
-    
   }
 
   .badge {
     position: absolute;
     right: -5px;
     top:-3px;
-    background: #000;
+    background: #FFC751;
     font-weight: normal;
     font-size:12px;
     color:#FFF;
