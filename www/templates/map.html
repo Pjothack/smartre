@@ -6,6 +6,7 @@
             <a ng-repeat="category in categories track by category.id"
             class="button button-light button-round button-round--small "
             ng-class="category.icon"
+            ng-click="toggleCategory(category.name)"
             ></a>
         </span>
         <a class="button button-light button-round ion-android-funnel" ng-click="buttonsVisible=!buttonsVisible"></a>

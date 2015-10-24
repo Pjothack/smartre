@@ -72,7 +72,7 @@ angular.module('starter.controllers', [])
       };
  
       $scope.searchLocations = function() {
-        
+        var tag = Categories.getActive();
         $http({
           method: 'GET',
           headers : {"content-type" : "application/json"},
@@ -86,7 +86,12 @@ angular.module('starter.controllers', [])
           });
       };
 
-      $scope.categories= Categories.get();
+      $scope.categories = Categories.all();
+
+      $scope.toggleCategory = function(id){
+        Categories.toggle(id);
+      }
+
       
     });
 

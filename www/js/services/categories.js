@@ -4,33 +4,59 @@ angular.module('starter')
 /* 
 *	Get JSON
 */
-.factory('Categories',['$http','$q', function($http, $q) {
+.factory('Categories',function($http, $q, $localStorage) {
 
-	return {
-		get: function(url,params) {
-			var categories =  [
+
+      var categories =  [
         {
           id:0,
           icon:'ion-android-bar',
-          name:'restaurant',
-          title:'Nightlife'
+          name:'bar',
+          title:'Bar'
         },
         {
           id:1,
-          icon:'ion-ios-football-outline',
-          name:'sport',
-          title:'Sport'
+          icon:'ion-fork',
+          name:'restaurant',
+          title:'Restaurant'
         },
         {
           id:2,
+          icon:'ion-ios-football-outline',
+          name:'sports',
+          title:'Sport'
+        },
+        {
+          id:3,
           icon:'ion-coffee',
-          name:'coffee',
+          name:'cafe',
           title:"Coffeehouse"
+        },
+        {
+          id:4,
+          icon:'ion-ios-cart-outline',
+          name:'shop',
+          title:"Shop"
         }
 
+
       ];
+
+      if(!$localStorage.categories || !_.isArray($localStorage.categories))
+        $localStorage.categories = [];
+
+	return {
+		all: function(url,params) {
       return categories;
-		}
+		},
+    toggle: function(categoryId){
+      var categoryPos = $localStorage.categories.length ? $localStorage.categories.indexOf(categoryId) : -1;
+      categoryPos >= 0 ? $localStorage.categories.splice(categoryPos,1) : $localStorage.categories.push(categoryId);
+    },
+    getActive:function(){
+      return $localStorage.categories;
+    }
+
 	}
 
-}]);
+});
