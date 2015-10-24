@@ -63,61 +63,6 @@ angular.module('starter.controllers', [])
       var markers = [];
       var infowindow = null;
 
- function onGeocodeComplete(i) {
-            // Callback function for geocode on response from Google.
-            // We wrap it in 'onGeocodeComplete' so we can send the
-            // location index through to the marker to establish
-            // content.
-            var geocodeCallBack = function(results, status) {
-                  if (status.toLowerCase() == 'ok') {
-                      var content = markers[i].description;
-                      tag = Categories.getIcon(markers[i].tags[0]);
-                      var title = markers[i].title;
-                      
-                      // this is still random
-                      var rand = Math.floor(Math.random() * 100) + 1;
-
-                      // define activity class
-                      var light = 'light';
-                      if(rand>25 && rand<50){
-                        light = 'medium';
-                      }
-                      else if(rand>50){
-                        light = 'dark';
-                      }
-
-                      // define label class
-                      var className = "labels "+light;
-                      // sale class, should come from markers[i].sale or something
-                      if(Math.random() > 0.5)
-                        className += ' has-sale';
-
-                      // Get center
-                      var coords = new google.maps.LatLng(
-                        results[0]['geometry']['location'].lat(),
-                        results[0]['geometry']['location'].lng()
-                        );               
-                        // Set marker also
-                        marker = new MarkerWithLabel({
-                          position: coords, 
-                          map: $scope.map,
-                          title: title,
-                          icon: ' ',
-                          labelContent: '<span class="'+tag+'"></span><span class="ion-person-stalker activity icon"></span><span class="sale icon">%</span><svg class="progress" width="36" height="36" xmlns="http://www.w3.org/2000/svg"><g><circle id="circle" class="circle_animation" r="16" cy="18" cx="18" style="stroke-dashoffset:'+(100-rand)+'"  fill="none"/></g></svg>',
-                          labelAnchor: new google.maps.Point(18, 18),
-                          labelClass: className,
-                          html: content                       
-                        });
-                        google.maps.event.addListener(marker, 'click', function() {
-                          infowindow.setContent(this.html)
-                          infowindow.open($scope.map,this);
-                        });
-                      }
-            } // END geocodeCallBack()
-            return geocodeCallBack;
-        } // END onGeocodeComplete()
-
-
       var searchLocations = function() {
         var tag = Categories.getActive();
         $http({
@@ -129,6 +74,10 @@ angular.module('starter.controllers', [])
             // when the response is available
             var geocoder = new google.maps.Geocoder(); 
             var res = response.data;
+            $http.get(corsURL+'http://tittle.eu-gb.mybluemix.net/locations/112/traffic_levels')
+                .success(function(data){
+                 $scope.$parent.image = data;
+                 });
             markers = [];
             infowindow = new google.maps.InfoWindow({
                   content: "content"
