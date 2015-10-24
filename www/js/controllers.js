@@ -64,7 +64,6 @@ angular.module('starter.controllers', [])
             var res = response.data;
             for(var i=0;i < res.length; i++){
             tag = Categories.getIcon(res[i].tags[0]);
-              console.log(tag);
               var title = res[i].title;
                 geocoder.geocode({
                     address : res[i].contact_info.address, 
@@ -87,7 +86,7 @@ angular.module('starter.controllers', [])
                           labelAnchor: new google.maps.Point(22, 50),
                           labelClass: "labels"                        
                           });
-               
+                          
                         }
                     }
                 );
