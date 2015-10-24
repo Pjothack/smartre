@@ -3,12 +3,10 @@
       <div id="map" data-tap-disabled="true"></div>
       <div class="button-set">
         <span class="button-set__action-buttons" ng-if="buttonsVisible">
-            <a class="button button-light button-round button-round--small ion-android-bar"></a>
-            <a class="button button-light button-round button-round--small ion-ios-football-outline"></a>
-            <a class="button button-light button-round button-round--small ion-coffee"></a>
-            <a class="button button-light button-round button-round--small ion-android-bar"></a>
-            <a class="button button-light button-round button-round--small ion-ios-football-outline"></a>
-            <a class="button button-light button-round button-round--small ion-coffee"></a>
+            <a ng-repeat="category in categories track by category.id"
+            class="button button-light button-round button-round--small "
+            ng-class="category.icon"
+            ></a>
         </span>
         <a class="button button-light button-round ion-android-funnel" ng-click="buttonsVisible=!buttonsVisible"></a>
       </div>

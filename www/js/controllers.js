@@ -12,14 +12,16 @@ angular.module('starter.controllers', [])
   
 })
 
-.controller('MapCtrl', function($scope, $ionicLoading, $compile) {
+.controller('MapCtrl', function($scope, $ionicLoading, $compile,Categories) {
       function initialize() {
         var myLatlng = new google.maps.LatLng(61.497779, 23.762384);
         
         var mapOptions = {
           center: myLatlng,
           zoom: 15,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          disableDefaultUI: true,
+          backgroundColor: "#fff"
         };
         var map = new google.maps.Map(document.getElementById("map"),
             mapOptions);
@@ -67,6 +69,8 @@ angular.module('starter.controllers', [])
       $scope.clickTest = function() {
         alert('Example of infowindow with ng-click')
       };
+
+      $scope.categories= Categories.get();
       
     });
 
