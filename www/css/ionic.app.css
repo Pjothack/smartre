@@ -9287,6 +9287,62 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
+@keyframes showButtons {
+  from {
+    transform: translate3d(0, 100%, 0) scale(0);
+    opacity: 0; }
+  to {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1; } }
+
+.button-set {
+  position: absolute;
+  left: 15px;
+  bottom: 30px;
+  z-index: 10;
+  width: 52px;
+  text-align: center; }
+  .button-set .button-set__action-buttons {
+    transition: opacity 0.2s ease; }
+    .button-set .button-set__action-buttons .button {
+      /*
+      transition: transform 0.2s ease;
+      */
+      margin-bottom: 10px;
+      opacity: 0;
+      transform: translate3d(0, 100%, 0) scale(0);
+      animation: showButtons 0.15s ease;
+      animation-fill-mode: forwards; }
+      .button-set .button-set__action-buttons .button:nth-child(5) {
+        animation-delay: 40ms; }
+      .button-set .button-set__action-buttons .button:nth-child(4) {
+        animation-delay: 80ms; }
+      .button-set .button-set__action-buttons .button:nth-child(3) {
+        animation-delay: 120ms; }
+      .button-set .button-set__action-buttons .button:nth-child(2) {
+        animation-delay: 160ms; }
+      .button-set .button-set__action-buttons .button:nth-child(1) {
+        animation-delay: 200ms; }
+      .button-set .button-set__action-buttons .button:nth-child(0) {
+        animation-delay: 240ms; }
+
+.button.button-round {
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  line-height: 52px;
+  border-radius: 50%;
+  border: none;
+  position: relative;
+  box-shadow: 0 1px 1.5px 0 rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.24); }
+  .button.button-round.button-round--small {
+    width: 36px;
+    height: 36px;
+    min-height: 0;
+    min-width: 0;
+    line-height: 36px;
+    font-size: 20px; }
+
 #map {
   width: 100%;
   height: 100%; }
