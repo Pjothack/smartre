@@ -77,14 +77,14 @@ angular.module('starter.controllers', [])
         $http({
           method: 'GET',
           headers : {"content-type" : "application/json"},
-          url: corsURL+'http://visittampere.fi/api/search?limit=50&offset=0&tag=bar&type=location'
+          url: corsURL+'http://visittampere.fi/api/search?limit=50&offset=0&tag=['+_.map(tag,function(item){return '"'+item+'"' })+']&type=location'
             }).then(function successCallback(response) {
             // this callback will be called asynchronously
             // when the response is available
             var geocoder = new google.maps.Geocoder(); 
             var res = response.data;
+            var tag = Categories.getIcon(res[i].tags[0]);
             for(var i=0;i < res.length; i++){
-              console.log();
               var title = res[i].title;
                 geocoder.geocode({
                     address : res[i].contact_info.address, 
@@ -98,13 +98,15 @@ angular.module('starter.controllers', [])
                         results[0]['geometry']['location'].lng()
                         );                        
                         // Set marker also
-                        marker = new google.maps.Marker({
+                        marker = new MarkerWithLabel({
                           position: coords, 
                           map: $scope.map,
                           title: title,
-                          content: title,
-                          icon: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png'
-                        });
+                          icon: ' ',
+                          labelContent: '<span class="'+tag+'" data-pack="default" data-tags="talk"></span>',
+                          labelAnchor: new google.maps.Point(22, 50),
+                          labelClass: "labels"                        
+                          });
                
                         }
                     }

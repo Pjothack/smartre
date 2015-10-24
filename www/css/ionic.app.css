@@ -4,16 +4,6 @@ To customize the look and feel of Ionic, you can override the variables
 in ionic's _variables.scss file.
 
 For example, you might change some of the default colors:
-
-$light:                           #fff !default;
-$stable:                          #f8f8f8 !default;
-$positive:                        #387ef5 !default;
-$calm:                            #11c1f3 !default;
-$balanced:                        #33cd5f !default;
-$energized:                       #ffc900 !default;
-$assertive:                       #ef473a !default;
-$royal:                           #886aea !default;
-$dark:                            #444 !default;
 */
 /*!
   Ionicons, v2.0.1
@@ -9287,18 +9277,25 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
+#map {
+  width: 100%;
+  height: 100%; }
+
+.scroll {
+  height: 100%; }
+
 @keyframes showButtons {
   from {
-    transform: translate3d(0, 100%, 0) scale(0);
+    transform: translate3d(0, 100%, 0);
     opacity: 0; }
   to {
-    transform: translate3d(0, 0, 0) scale(1);
+    transform: translate3d(0, 0, 0);
     opacity: 1; } }
 
 .button-set {
   position: absolute;
-  left: 15px;
-  bottom: 30px;
+  left: 20px;
+  bottom: 20px;
   z-index: 10;
   width: 52px;
   text-align: center; }
@@ -9310,7 +9307,7 @@ a.button {
       */
       margin-bottom: 10px;
       opacity: 0;
-      transform: translate3d(0, 100%, 0) scale(0);
+      transform: translate3d(0, 100%, 0);
       animation: showButtons 0.15s ease;
       animation-fill-mode: forwards; }
       .button-set .button-set__action-buttons .button:nth-child(5) {
@@ -9343,9 +9340,13 @@ a.button {
     line-height: 36px;
     font-size: 20px; }
 
-#map {
-  width: 100%;
-  height: 100%; }
-
-.scroll {
-  height: 100%; }
+.labels {
+  color: red;
+  background-color: white;
+  font-family: "Lucida Grande", "Arial", sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+  width: 40px;
+  border: 2px solid black;
+  white-space: nowrap; }
