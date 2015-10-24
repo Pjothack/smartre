@@ -14,36 +14,13 @@ angular.module('starter.controllers', [])
   
 })
 
-.controller('MapCtrl', function($scope, $ionicLoading, $compile, $http, corsURL, Categories) {
+.controller('MapCtrl', function($scope, $ionicLoading, $compile, $http, corsURL, Categories,MapSettings) {
       function initialize() {
-        var myLatlng = new google.maps.LatLng(61.497779, 23.762384);
-        
-        var mapOptions = {
-          center: myLatlng,
-          zoom: 15,
-          mapTypeId: google.maps.MapTypeId.ROADMAP,
-          disableDefaultUI: true
-        };
+
+        var mapOptions = MapSettings;
         var map = new google.maps.Map(document.getElementById("map"),
             mapOptions);
         
-        //Marker + infowindow + angularjs compiled ng-click
-        var contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
-        var compiled = $compile(contentString)($scope);
-
-        var infowindow = new google.maps.InfoWindow({
-          content: compiled[0]
-        });
-
-        var marker = new google.maps.Marker({
-          position: myLatlng,
-          map: map,
-          title: 'Uluru (Ayers Rock)'
-        });
-
-        google.maps.event.addListener(marker, 'click', function() {
-          infowindow.open(map,marker);
-        });
 
         $scope.map = map;
       }
