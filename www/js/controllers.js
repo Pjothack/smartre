@@ -50,36 +50,23 @@ angular.module('starter.controllers', [])
       };
 
       var markers = [];
-      var searchLocations = function() {
-        var tag = Categories.getActive();
-        $http({
-          method: 'GET',
-          headers : {"content-type" : "application/json"},
-          url: corsURL+'http://visittampere.fi/api/search?limit=50&offset=0&tag=['+_.map(tag,function(item){return '"'+item+'"' })+']&type=location'
-            }).then(function successCallback(response) {
-            // this callback will be called asynchronously
-            // when the response is available
-            var geocoder = new google.maps.Geocoder(); 
-            var res = response.data;
-            markers = [];
-            for(var i=0;i < res.length; i++){
-            var content = res[i].description;
-            tag = Categories.getIcon(res[i].tags[0]);
-              var title = res[i].title;
-                geocoder.geocode({
-                    address : res[i].contact_info.address, 
-                    //region: 'no' 
-                  },
-                    function(results, status) {
-                      if (status.toLowerCase() == 'ok') {
+      var infowindow = null;
+
+ function onGeocodeComplete(i) {
+            // Callback function for geocode on response from Google.
+            // We wrap it in 'onGeocodeComplete' so we can send the
+            // location index through to the marker to establish
+            // content.
+            var geocodeCallBack = function(results, status) {
+                  if (status.toLowerCase() == 'ok') {
+                      var content = markers[i].description;
+                      tag = Categories.getIcon(markers[i].tags[0]);
+                      var title = markers[i].title;
                       // Get center
                       var coords = new google.maps.LatLng(
                         results[0]['geometry']['location'].lat(),
                         results[0]['geometry']['location'].lng()
-                        );  
-                         infowindow = new google.maps.InfoWindow({
-                         content: content
-                        });                     
+                        );               
                         // Set marker also
                         marker = new MarkerWithLabel({
                           position: coords, 
@@ -96,8 +83,37 @@ angular.module('starter.controllers', [])
                           infowindow.open($scope.map,this);
                         });
                       }
+            } // END geocodeCallBack()
+            return geocodeCallBack;
+        } // END onGeocodeComplete()
+
+
+      var searchLocations = function() {
+        var tag = Categories.getActive();
+        $http({
+          method: 'GET',
+          headers : {"content-type" : "application/json"},
+          url: corsURL+'http://visittampere.fi/api/search?limit=50&offset=0&tag=['+_.map(tag,function(item){return '"'+item+'"' })+']&type=location'
+            }).then(function successCallback(response) {
+            // this callback will be called asynchronously
+            // when the response is available
+            var geocoder = new google.maps.Geocoder(); 
+            var res = response.data;
+            markers = [];
+            infowindow = new google.maps.InfoWindow({
+                  content: "content"
+            });
+            for(var i=0;i < res.length; i++){
+            markers.push(res[i]);
+            geocoder.geocode( {'address': res[i].contact_info.address}, onGeocodeComplete(i));
+               /* geocoder.geocode({
+                    address : res[i].contact_info.address, 
+                    //region: 'no' 
+                  },
+                    function(results, status) {
+                    
                     }
-                );
+                );*/
               }
             }, function errorCallback(response) {
             // called asynchronously if an error occurs
