@@ -71,21 +71,36 @@ angular.module('starter.controllers', [])
         alert('Example of infowindow with ng-click')
       };
  
+      function setMarker(map, position, title, content) {
+      var marker;
+      var markerOptions = {
+          position: position,
+          map: map,
+          title: title,
+          icon: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png'
+      };
+    }
+
       $scope.searchLocations = function() {
         var tag = Categories.getActive();
         $http({
           method: 'GET',
           headers : {"content-type" : "application/json"},
-          url: corsURL+'http://visittampere.fi/api/search?limit=10&offset=0&tag='+tag+'&type=location'
+          url: corsURL+'http://visittampere.fi/api/search?limit=50&offset=0&tag=bar&type=location'
             }).then(function successCallback(response) {
             // this callback will be called asynchronously
             // when the response is available
+            for(i=0;i < response.length; i++){
+              var position = response[i].location[0]+','+response[i].location[1];
+              var title = response[i].title;
+              var content = response[i].description;
+              setMarker("map",position,title,content);
+              }
             }, function errorCallback(response) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
           });
       };
-
       $scope.categories = Categories.all();
 
       $scope.toggleCategory = function(id){
