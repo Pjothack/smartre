@@ -16,7 +16,7 @@ angular.module('starter.controllers', [])
 .controller("LoginController", function($scope, $cordovaOauth, $localStorage, $location) {
  
     $scope.login = function() {
-        $cordovaOauth.facebook("1648290115460220", ["email", "read_stream", "user_website", "user_location", "user_relationships"]).then(function(result) {
+        $cordovaOauth.facebook("", ["email", "read_stream", "user_website", "user_location", "user_relationships"]).then(function(result) {
             $localStorage.accessToken = result.access_token;
             $location.path("/map");
         }, function(error) {
@@ -33,8 +33,6 @@ angular.module('starter.controllers', [])
         var mapOptions = MapSettings;
         var map = new google.maps.Map(document.getElementById("map"),
             mapOptions);
-        
-
         $scope.map = map;
       }
       //google.maps.event.addDomListener(window, 'load', initialize);
@@ -125,7 +123,7 @@ angular.module('starter.controllers', [])
         $http({
           method: 'GET',
           headers : {"content-type" : "application/json"},
-          url: corsURL+'http://tittle.eu-gb.mybluemix.net/locations'
+          url: corsURL+'http://tittle.eu-gb.mybluemix.net/locations?limit=100'
             }).then(function successCallback(response) {
             // this callback will be called asynchronously
             // when the response is available
