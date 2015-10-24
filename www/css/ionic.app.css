@@ -9277,25 +9277,38 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
-#map {
-  width: 100%;
-  height: 100%; }
+.bar.bar-header {
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border: 0px !important;
+  border-bottom-color: transparent !important;
+  background-image: none;
+  border-bottom: none; }
 
-.scroll {
-  height: 100%; }
+.labels {
+  background-color: #fff;
+  font-family: "Lucida Grande", "Arial", sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  white-space: nowrap; }
 
 @keyframes showButtons {
   from {
-    transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0) scale(0);
     opacity: 0; }
   to {
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0) scale(1);
     opacity: 1; } }
 
 .button-set {
   position: absolute;
-  left: 20px;
-  bottom: 20px;
+  left: 15px;
+  bottom: 30px;
   z-index: 10;
   width: 52px;
   text-align: center; }
@@ -9307,7 +9320,7 @@ a.button {
       */
       margin-bottom: 10px;
       opacity: 0;
-      transform: translate3d(0, 100%, 0);
+      transform: translate3d(0, 100%, 0) scale(0);
       animation: showButtons 0.15s ease;
       animation-fill-mode: forwards; }
       .button-set .button-set__action-buttons .button:nth-child(5) {
@@ -9340,14 +9353,9 @@ a.button {
     line-height: 36px;
     font-size: 20px; }
 
-.labels {
-  background-color: #fff;
-  font-family: "Lucida Grande", "Arial", sans-serif;
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  line-height: 36px;
-  white-space: nowrap; }
+#map {
+  width: 100%;
+  height: 100%; }
+
+.scroll {
+  height: 100%; }
