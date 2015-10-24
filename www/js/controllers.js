@@ -22,8 +22,7 @@ angular.module('starter.controllers', [])
           center: myLatlng,
           zoom: 15,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
-          disableDefaultUI: true,
-          backgroundColor: "#fff"
+          disableDefaultUI: true
         };
         var map = new google.maps.Map(document.getElementById("map"),
             mapOptions);
