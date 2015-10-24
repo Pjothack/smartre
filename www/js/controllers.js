@@ -62,8 +62,9 @@ angular.module('starter.controllers', [])
             // when the response is available
             var geocoder = new google.maps.Geocoder(); 
             var res = response.data;
-            var tag = Categories.getIcon(res[i].tags[0]);
             for(var i=0;i < res.length; i++){
+            tag = Categories.getIcon(res[i].tags[0]);
+              console.log(tag);
               var title = res[i].title;
                 geocoder.geocode({
                     address : res[i].contact_info.address, 
