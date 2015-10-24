@@ -62,6 +62,7 @@ angular.module('starter.controllers', [])
                       var content = markers[i].description;
                       tag = Categories.getIcon(markers[i].tags[0]);
                       var title = markers[i].title;
+                      var rand = Math.floor(Math.random() * 100) + 1;
                       // Get center
                       var coords = new google.maps.LatLng(
                         results[0]['geometry']['location'].lat(),
@@ -73,7 +74,7 @@ angular.module('starter.controllers', [])
                           map: $scope.map,
                           title: title,
                           icon: ' ',
-                          labelContent: '<span class="'+tag+'" data-pack="default" data-tags="talk"></span>',
+                          labelContent: '<span class="'+tag+'" data-pack="default" data-tags="talk"></span><svg class="progress" width="36" height="36" xmlns="http://www.w3.org/2000/svg"><g><circle id="circle" class="circle_animation" r="16" cy="18" cx="18" style="stroke-dashoffset:'+rand+'" stroke-width="2" stroke="#69aff4" fill="none"/></g></svg>',
                           labelAnchor: new google.maps.Point(22, 50),
                           labelClass: "labels",
                           html: content                       

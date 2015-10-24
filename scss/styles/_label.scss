@@ -10,7 +10,19 @@
      line-height:36px;
      white-space: nowrap;
 
-     &:nth-child(2) {
-          transform: scale(1.5);
+     /*
+     &:before {
+          z-index: 11;
+          display: inline-block;
+          width: 36px;
+          height: 36px;
+          border: 2px solid red;
+          background: transparent;
+          position: absolute;
+          top:0%;
+          left:0%;
+          content:'';
+          border-radius: 50%;
      }
+     */
    }
