@@ -1,4 +1,6 @@
 angular.module('starter.controllers', [])
+// URL to API that enables cross-origin requests to anywhere
+ .value('corsURL', '//cors-anywhere.herokuapp.com/')
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -12,7 +14,7 @@ angular.module('starter.controllers', [])
   
 })
 
-.controller('MapCtrl', function($scope, $ionicLoading, $compile,Categories) {
+.controller('MapCtrl', function($scope, $ionicLoading, $compile,$http,corsURL,Categories) {
       function initialize() {
         var myLatlng = new google.maps.LatLng(61.497779, 23.762384);
         
@@ -68,6 +70,21 @@ angular.module('starter.controllers', [])
       
       $scope.clickTest = function() {
         alert('Example of infowindow with ng-click')
+      };
+ 
+      $scope.searchLocations = function() {
+        
+        $http({
+          method: 'GET',
+          headers : {"content-type" : "application/json"},
+          url: corsURL+'http://visittampere.fi/api/search?limit=10&offset=0&tag='+tag+'&type=location'
+            }).then(function successCallback(response) {
+            // this callback will be called asynchronously
+            // when the response is available
+            }, function errorCallback(response) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+          });
       };
 
       $scope.categories= Categories.get();
