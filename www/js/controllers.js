@@ -51,10 +51,12 @@ angular.module('starter.controllers', [])
 
       var searchLocations = function() {
         var tag = Categories.getActive();
+
+
         $http({
           method: 'GET',
           headers : {"content-type" : "application/json"},
-          url: corsURL+'http://visittampere.fi/api/search?limit=50&offset=0&tag=bar&type=location'
+          url: corsURL+'http://visittampere.fi/api/search?limit=50&offset=0&tag=['+_.map(tag,function(item){return '"'+item+'"' })+']&type=location'
             }).then(function successCallback(response) {
             // this callback will be called asynchronously
             // when the response is available
