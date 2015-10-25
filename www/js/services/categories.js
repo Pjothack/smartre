@@ -37,6 +37,12 @@ angular.module('starter')
           icon:'ion-ios-cart',
           name:'shop',
           title:"Shop"
+        },
+        {
+          id:5,
+          icon:'ion-calendar',
+          name:'event',
+          title:"Events"
         }
 
 
