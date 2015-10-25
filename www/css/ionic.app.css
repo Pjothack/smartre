@@ -9315,10 +9315,6 @@ a.button {
     background: #508ef6; }
   .labels.dark .progress .circle_animation {
     stroke: #508ef6; }
-  .labels.darkest .activity {
-    background: #0b56d6; }
-  .labels.darkest .progress .circle_animation {
-    stroke: #0b56d6; }
   .labels .icon {
     position: absolute;
     right: -3px;
@@ -9366,6 +9362,7 @@ svg.progress {
 .discount {
   display: block;
   background: #ffe09d;
+  height: 60px;
   text-align: center;
   padding: 0.5em; }
 
