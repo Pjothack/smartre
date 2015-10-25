@@ -98,4 +98,9 @@ svg.progress {
   stroke-width:2;
 }
 
-.discount {display: block;}
+.discount {
+  display: block;
+  background:lighten($energized,15%);
+  text-align:center;  
+  padding: 0.5em;
+}
