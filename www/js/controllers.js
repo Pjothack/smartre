@@ -31,12 +31,37 @@ angular.module('starter.controllers', [])
 })
 
 .controller('MapCtrl', function($scope, $ionicLoading, $compile, $http, $timeout, $interval,CORSURL, APIURL, Categories,MapSettings,UPDATE_INTERVAL) {
+      
+      var markers = [];
+      var markerObj = [];
+      var infowindow = null;
+      var updateMarkersPromise;
+      var clearMarkers = function(){
+        _.map(markerObj,function(item){
+          item.setMap(null);
+        })
+      }
+
+
+
+
       function initialize() {
 
         var mapOptions = MapSettings;
         var map = new google.maps.Map(document.getElementById("map"),
             mapOptions);
         $scope.map = map;
+
+
+        map.addListener('zoom_changed', function() {
+          _.map(markerObj,function(item,i){
+            var t =  Math.round(markers[i].traffic.average*100) || 0;
+            animateCircle(i,t,0)
+          })
+        });
+
+
+
       }
       //google.maps.event.addDomListener(window, 'load', initialize);
       initialize();
@@ -62,16 +87,6 @@ angular.module('starter.controllers', [])
       $scope.clickTest = function() {
         alert('Example of infowindow with ng-click')
       };
-
-      var markers = [];
-      var markerObj = [];
-      var infowindow = null;
-      var updateMarkersPromise;
-      var clearMarkers = function(){
-        _.map(markerObj,function(item){
-          item.setMap(null);
-        })
-      }
 
 
       var searchLocations = function() {
@@ -145,7 +160,7 @@ angular.module('starter.controllers', [])
                       html: content                       
                     });
                     markerObj.push(marker);
-                    animateCircle(i,traffic);
+                    animateCircle(i,traffic,500);
                     
                     google.maps.event.addListener(marker, 'click', function() {
                       infowindow.setContent(this.html)
@@ -195,7 +210,7 @@ angular.module('starter.controllers', [])
                 // update content
                 markerObj[i].labelContent = labelContent;  
                 markerObj[i].labelClass  = classes;
-                animateCircle(i,traffic);
+                animateCircle(i,traffic,500);
 
             }
           })  
@@ -206,12 +221,12 @@ angular.module('starter.controllers', [])
 
       $scope.categories = Categories.all();
 
-      var animateCircle = function(id, rand){
+      var animateCircle = function(id, traffic,time){
          $timeout(function(){
           if(document.getElementById('circle_'+id)){
-            document.getElementById('circle_'+id).style.strokeDashoffset = (100-rand);
+            document.getElementById('circle_'+id).style.strokeDashoffset = (100-traffic);
           }
-         },500);
+         },time);
       }
 
       $scope.toggleCategory = function(id){
