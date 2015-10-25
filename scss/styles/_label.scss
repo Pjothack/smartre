@@ -1,6 +1,7 @@
 $clear: lighten($positive,30%);
 $medium: lighten($positive,25%);
 $crowded: lighten($positive,5%);
+$darkest: darken($positive,15%);
 
 $info-size:17px;
 $info-font-size:10px;
@@ -39,6 +40,11 @@ $info-font-size:10px;
      &.dark {
           .activity {background: $crowded;}
           .progress .circle_animation{stroke:$crowded;}
+     }
+
+     &.darkest{
+          .activity {background: $darkest;}
+          .progress .circle_animation{stroke:$darkest;}
      }
 
      .icon {

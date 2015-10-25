@@ -1,6 +1,9 @@
 angular.module('starter.controllers', [])
 // URL to API that enables cross-origin requests to anywhere
- .value('corsURL', '//cors-anywhere.herokuapp.com/')
+ .value('CORSURL', '//cors-anywhere.herokuapp.com/')
+ .value('APIURL', 'http://tittle.eu-gb.mybluemix.net/locations')
+ .value('UPDATE_INTERVAL', '5000')
+
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -27,7 +30,7 @@ angular.module('starter.controllers', [])
  
 })
 
-.controller('MapCtrl', function($scope, $ionicLoading, $compile, $http, $timeout, corsURL, Categories,MapSettings) {
+.controller('MapCtrl', function($scope, $ionicLoading, $compile, $http, $timeout, $interval,CORSURL, APIURL, Categories,MapSettings,UPDATE_INTERVAL) {
       function initialize() {
 
         var mapOptions = MapSettings;
@@ -44,7 +47,7 @@ angular.module('starter.controllers', [])
         }
 
         $scope.loading = $ionicLoading.show({
-          content: 'Getting current location...',
+          content: 'Loading...',
           showBackdrop: false
         });
 
@@ -63,53 +66,68 @@ angular.module('starter.controllers', [])
       var markers = [];
       var markerObj = [];
       var infowindow = null;
+      var updateMarkersPromise;
       var clearMarkers = function(){
         _.map(markerObj,function(item){
           item.setMap(null);
         })
       }
+
+
       var searchLocations = function() {
-        clearMarkers();
         var tag = Categories.getActive();
+        clearMarkers();
         $http({
           method: 'GET',
           headers : {"content-type" : "application/json"},
-          url: corsURL+'http://tittle.eu-gb.mybluemix.net/locations?limit=30'
+          params: {limit:30},
+          url: CORSURL+APIURL
             }).then(function successCallback(response) {
             // this callback will be called asynchronously
             // when the response is available
+
             var geocoder = new google.maps.Geocoder(); 
             var res = response.data;
-            var rand;
+            var traffic;
             markers = [];
             markerObj = [];
             infowindow = new google.maps.InfoWindow({
                   content: "content"
             });
+            //Clear previous update promise
+            $interval.cancel(updateMarkersPromise);
+
+            //Start new update process
+            updateMarkersPromise = $interval(updateMarkers, UPDATE_INTERVAL); 
+
             for(var i=0;i < res.length; i++){
                   markers.push(res[i]);
                   content = res[i].title +'<br>' +res[i].description;
                   tag = Categories.getIcon(res[i].category);
                   var title = res[i].title;
                   // this is still random
-                  rand = Math.floor(Math.random() * 100) + 1;
+                  traffic = Math.floor(Math.random() * 100) + 1;
 
                   // define activity class
-                  var light = 'light';
-                  if(rand>25 && rand<50){
+                  var light = 'darkest';
+                  if(traffic<25){
+                    light = 'light';
+                  }
+                  else if(traffic<50){
                     light = 'medium';
                   }
-                  else if(rand>50){
+                  else if(traffic<75){
                     light = 'dark';
                   }
 
                   // define label class
                   var className = "labels "+light;
                   // sale class, should come from markers[i].sale or something
-                  if(res[i].discounts[0]){
+                  if(res[i].discounts.length){
                     content = res[i].title +'<br><span class="discount">'+ res[i].discounts[0].description+'</span>';
                     className += ' has-sale';
-                    }
+                  }
+
                   // Get center
                   var coords = new google.maps.LatLng(
                     res[i].latitude,
@@ -127,7 +145,7 @@ angular.module('starter.controllers', [])
                       html: content                       
                     });
                     markerObj.push(marker);
-                    animateCircle(i,rand);
+                    animateCircle(i,traffic);
                     
                     google.maps.event.addListener(marker, 'click', function() {
                       infowindow.setContent(this.html)
@@ -139,6 +157,52 @@ angular.module('starter.controllers', [])
             // or server returns response with an error status.
           });
       };
+
+
+
+      var updateMarkers = function(){
+        $http({
+          method: 'GET',
+          headers : {"content-type" : "application/json"},
+          params: {limit:30},
+          url: CORSURL+APIURL}).then(function successCallback(response) {
+            var res = response.data;
+            for(var i=0;i < res.length; i++){
+
+
+                var traffic = Math.floor(Math.random() * 100) + 1;
+                var light = 'darkest';
+                  if(traffic<25){
+                    light = 'light';
+                  }else if(traffic<50){
+                    light = 'medium';
+                  } else if(traffic<75){
+                    light = 'dark';
+                  }
+                
+                var content = res[i].title +'<br>' +res[i].description;
+                var tag = Categories.getIcon(res[i].category);
+
+                var classes = "labels "+light;
+                if(res[i].discounts.length){
+                    content = res[i].title +'<br><span class="discount">'+ (res[i].discounts[0].description||'')+'</span>';
+                    classes += ' has-sale';
+                }
+                var labelContent = '<span class="'+tag+'"></span><span class="ion-person-stalker activity icon"></span><span class="sale icon">%</span><svg class="progress" width="36" height="36" xmlns="http://www.w3.org/2000/svg"><g><circle id="circle_'+i+'" class="circle_animation" r="16" cy="18" cx="18" fill="none"/></g></svg>';
+                
+                
+                // update content
+                markerObj[i].labelContent = labelContent;  
+                markerObj[i].labelClass  = classes;
+                animateCircle(i,traffic);
+
+            }
+          })  
+      }
+
+
+
+
       $scope.categories = Categories.all();
 
       var animateCircle = function(id, rand){
