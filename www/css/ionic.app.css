@@ -9315,6 +9315,10 @@ a.button {
     background: #4d5ec1; }
   .labels.dark .progress .circle_animation {
     stroke: #4d5ec1; }
+  .labels.darkest .activity {
+    background: #32408f; }
+  .labels.darkest .progress .circle_animation {
+    stroke: #32408f; }
   .labels .icon {
     position: absolute;
     right: -3px;
