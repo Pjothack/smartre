@@ -9398,7 +9398,7 @@ svg.progress {
       .button-set .button-set__action-buttons .button:nth-child(0) {
         animation-delay: 240ms; }
       .button-set .button-set__action-buttons .button.selected {
-        background: #FFC751;
+        background: #000;
         color: #FFF; }
 
 .button-toggle:before {
@@ -9428,7 +9428,7 @@ svg.progress {
     position: absolute;
     right: -5px;
     top: -3px;
-    background: #FFC751;
+    background: #000;
     font-weight: normal;
     font-size: 12px;
     color: #FFF;
