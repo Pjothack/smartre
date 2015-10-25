@@ -68,16 +68,12 @@ angular.module('starter.controllers', [])
         $http({
           method: 'GET',
           headers : {"content-type" : "application/json"},
-          url: corsURL+'http://tittle.eu-gb.mybluemix.net/locations?limit=100'
+          url: corsURL+'http://tittle.eu-gb.mybluemix.net/locations?limit=30'
             }).then(function successCallback(response) {
             // this callback will be called asynchronously
             // when the response is available
             var geocoder = new google.maps.Geocoder(); 
             var res = response.data;
-            $http.get(corsURL+'http://tittle.eu-gb.mybluemix.net/locations/112/traffic_levels')
-                .success(function(data){
-                 $scope.$parent.image = data;
-                 });
             markers = [];
             infowindow = new google.maps.InfoWindow({
                   content: "content"
@@ -102,8 +98,10 @@ angular.module('starter.controllers', [])
                   // define label class
                   var className = "labels "+light;
                   // sale class, should come from markers[i].sale or something
-                  if(Math.random() > 0.5)
+                  if(res[i].discounts[0]){
+                    content = res[i].title +'<br>'+ res[i].discounts[0].description +'<br>' +res[i].description;
                     className += ' has-sale';
+                    }
                   // Get center
                   var coords = new google.maps.LatLng(
                     res[i].latitude,
