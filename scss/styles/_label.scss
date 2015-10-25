@@ -101,7 +101,9 @@ svg.progress {
 .discount {
   display: block;
   background:lighten($energized,15%);
-  height: 60px;
+  margin:10px auto 0;
+  color:darken($energized,45%);
+  font-weight: bold;
   text-align:center;  
   padding: 0.5em;
 }

@@ -41,6 +41,7 @@ angular.module('starter.controllers', [])
           item.setMap(null);
         })
       }
+      var loading;
 
 
 
@@ -66,6 +67,13 @@ angular.module('starter.controllers', [])
       //google.maps.event.addDomListener(window, 'load', initialize);
       initialize();
 
+
+      $scope.clearAll = function(){
+        clearMarkers();
+        Categories.clear();
+        updateActive();
+      }
+
       $scope.centerOnMe = function() {
         if(!$scope.map) {
           return;
@@ -90,6 +98,11 @@ angular.module('starter.controllers', [])
 
 
       var searchLocations = function() {
+        loading = $ionicLoading.show({
+          content: 'Loading...',
+          showBackdrop: false
+        });
+
         var selectedTags = Categories.getActive();
         clearMarkers();
         $http({
@@ -100,6 +113,12 @@ angular.module('starter.controllers', [])
             }).then(function successCallback(response) {
             // this callback will be called asynchronously
             // when the response is available
+
+
+            // hide loader
+            $timeout(function(){
+              $ionicLoading.hide();
+            });
 
             var geocoder = new google.maps.Geocoder(); 
             var res = response.data;
@@ -168,8 +187,7 @@ angular.module('starter.controllers', [])
                     });
               }
             }, function errorCallback(response) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
+              $ionicLoading.hide();
           });
       };
 

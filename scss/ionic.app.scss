@@ -6,7 +6,7 @@ For example, you might change some of the default colors:
 */
 $light:                           #fff !default;
 $stable:                          #f8f8f8 !default;
-$positive:                        #387ef5 !default;
+$positive:                        #3F51B5 !default;
 $calm:                            #11c1f3 !default;
 $balanced:                        #0F9D58 !default;
 $energized:                       #FFC751 !default;
@@ -28,6 +28,19 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import "www/lib/ionic/scss/ionic";
 
 @import "scss/styles/style";
+
+
+.loading-container .loading {
+  background: #FFF;
+  padding: 4px;
+  height: 48px;
+  width: 48px;
+  svg {
+    width: 40px;
+    height: 40px;
+  }
+  border-radius: 50%;
+}
 
 
 
