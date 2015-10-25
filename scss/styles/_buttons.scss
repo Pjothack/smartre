@@ -45,11 +45,11 @@
 
 .button-toggle {
   &:before {
-    transform: rotate(0);
+    transform: transform3d(0,0,0) rotate(0);
     transition:transform 0.15s ease;
   }
   &.open:before {
-    transform: rotate(-180deg);
+    transform:scaleY(-1);
   }
 }
 
