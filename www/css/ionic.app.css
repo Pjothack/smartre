@@ -9364,7 +9364,10 @@ svg.progress {
   stroke-width: 2; }
 
 .discount {
-  display: block; }
+  display: block;
+  background: #ffe09d;
+  text-align: center;
+  padding: 0.5em; }
 
 @keyframes showButtons {
   from {
