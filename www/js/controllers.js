@@ -2,7 +2,7 @@ angular.module('starter.controllers', [])
 // URL to API that enables cross-origin requests to anywhere
  .value('CORSURL', '//cors-anywhere.herokuapp.com/')
  .value('APIURL', 'http://tittle.eu-gb.mybluemix.net/locations')
- .value('UPDATE_INTERVAL', '5000')
+ .value('UPDATE_INTERVAL', '10000')
 
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
@@ -75,12 +75,12 @@ angular.module('starter.controllers', [])
 
 
       var searchLocations = function() {
-        var tag = Categories.getActive();
+        var selectedTags = Categories.getActive();
         clearMarkers();
         $http({
           method: 'GET',
           headers : {"content-type" : "application/json"},
-          params: {limit:30},
+          params: {limit:30, category: selectedTags.join(',')},
           url: CORSURL+APIURL
             }).then(function successCallback(response) {
             // this callback will be called asynchronously
@@ -89,6 +89,7 @@ angular.module('starter.controllers', [])
             var geocoder = new google.maps.Geocoder(); 
             var res = response.data;
             var traffic;
+            var tag;
             markers = [];
             markerObj = [];
             infowindow = new google.maps.InfoWindow({
@@ -106,8 +107,7 @@ angular.module('starter.controllers', [])
                   tag = Categories.getIcon(res[i].category);
                   var title = res[i].title;
                   // this is still random
-                  traffic = Math.floor(Math.random() * 100) + 1;
-
+                  traffic = Math.round(res[i].traffic.average*100) || 0;
                   // define activity class
                   var light = 'darkest';
                   if(traffic<25){
@@ -161,16 +161,17 @@ angular.module('starter.controllers', [])
 
 
       var updateMarkers = function(){
+        var selectedTags = Categories.getActive();
         $http({
           method: 'GET',
           headers : {"content-type" : "application/json"},
-          params: {limit:30},
+          params: {limit:30, category: selectedTags.join(',')},
           url: CORSURL+APIURL}).then(function successCallback(response) {
             var res = response.data;
             for(var i=0;i < res.length; i++){
 
 
-                var traffic = Math.floor(Math.random() * 100) + 1;
+                var traffic = Math.round(res[i].traffic.average*100 ) || 0;
                 var light = 'darkest';
                   if(traffic<25){
                     light = 'light';
