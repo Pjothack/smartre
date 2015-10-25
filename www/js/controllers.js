@@ -27,7 +27,7 @@ angular.module('starter.controllers', [])
  
 })
 
-.controller('MapCtrl', function($scope, $ionicLoading, $compile, $http, corsURL, Categories,MapSettings) {
+.controller('MapCtrl', function($scope, $ionicLoading, $compile, $http, $timeout, corsURL, Categories,MapSettings) {
       function initialize() {
 
         var mapOptions = MapSettings;
@@ -74,6 +74,7 @@ angular.module('starter.controllers', [])
             // when the response is available
             var geocoder = new google.maps.Geocoder(); 
             var res = response.data;
+            var rand;
             markers = [];
             infowindow = new google.maps.InfoWindow({
                   content: "content"
@@ -84,7 +85,7 @@ angular.module('starter.controllers', [])
                   tag = Categories.getIcon(res[i].category);
                   var title = res[i].title;
                   // this is still random
-                  var rand = Math.floor(Math.random() * 100) + 1;
+                  rand = Math.floor(Math.random() * 100) + 1;
 
                   // define activity class
                   var light = 'light';
@@ -113,11 +114,15 @@ angular.module('starter.controllers', [])
                       map: $scope.map,
                       title: title,
                       icon: ' ',
-                      labelContent: '<span class="'+tag+'"></span><span class="ion-person-stalker activity icon"></span><span class="sale icon">%</span><svg class="progress" width="36" height="36" xmlns="http://www.w3.org/2000/svg"><g><circle id="circle" class="circle_animation" r="16" cy="18" cx="18" style="stroke-dashoffset:'+(100-rand)+'"  fill="none"/></g></svg>',
+                      labelContent: '<span class="'+tag+'"></span><span class="ion-person-stalker activity icon"></span><span class="sale icon">%</span><svg class="progress" width="36" height="36" xmlns="http://www.w3.org/2000/svg"><g><circle id="circle_'+i+'" class="circle_animation" r="16" cy="18" cx="18" fill="none"/></g></svg>',
                       labelAnchor: new google.maps.Point(18, 18),
                       labelClass: className,
                       html: content                       
                     });
+
+                    animateCircle(i);
+                    
+
                     google.maps.event.addListener(marker, 'click', function() {
                       infowindow.setContent(this.html)
                       infowindow.open($scope.map,this);
@@ -130,7 +135,11 @@ angular.module('starter.controllers', [])
       };
       $scope.categories = Categories.all();
 
-
+      var animateCircle = function(id){
+         $timeout(function(){
+            document.getElementById('circle_'+id).style.strokeDashoffset = (100-rand);
+         },500);
+      }
 
       $scope.toggleCategory = function(id){
         Categories.toggle(id);

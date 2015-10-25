@@ -23,7 +23,7 @@
       margin-bottom:10px;
       opacity:0;
       transform:translate3d(0,100%,0) scale(0);    
-      animation: showButtons 0.15s ease;
+      animation: showButtons 0.35s cubic-bezier(.87,-.41,.19,1.44);
       animation-fill-mode: forwards;
       
       $button-count:6;
@@ -46,12 +46,13 @@
 .button-toggle {
   &:before {
     transform: rotate(0);
-    transition:transform 0.25s cubic-bezier(.87,-.41,.19,1.44);
+    transition:transform 0.15s ease;
   }
   &.open:before {
     transform: rotate(-180deg);
   }
 }
+
 
 .button.button-round {
   width:52px;

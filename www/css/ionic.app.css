@@ -9383,7 +9383,7 @@ svg.progress {
       margin-bottom: 10px;
       opacity: 0;
       transform: translate3d(0, 100%, 0) scale(0);
-      animation: showButtons 0.15s ease;
+      animation: showButtons 0.35s cubic-bezier(0.87, -0.41, 0.19, 1.44);
       animation-fill-mode: forwards; }
       .button-set .button-set__action-buttons .button:nth-child(5) {
         animation-delay: 40ms; }
