@@ -103,7 +103,7 @@ angular.module('starter.controllers', [])
 
             for(var i=0;i < res.length; i++){
                   markers.push(res[i]);
-                  content = res[i].title +'<br>' +res[i].description;
+                  content = res[i].title +'<br>';
                   tag = Categories.getIcon(res[i].category);
                   var title = res[i].title;
                   // this is still random
@@ -123,8 +123,8 @@ angular.module('starter.controllers', [])
                   // define label class
                   var className = "labels "+light;
                   // sale class, should come from markers[i].sale or something
-                  if(res[i].discounts.length){
-                    content = res[i].title +'<br><span class="discount">'+ res[i].discounts[0].description+'</span>';
+                  if(res[i].discounts[0]){
+                    content = res[i].title +'<br><span class="discount">'+ (res[i].discounts[0].description||'')+'</span>';
                     className += ' has-sale';
                   }
 
@@ -185,7 +185,7 @@ angular.module('starter.controllers', [])
                 var tag = Categories.getIcon(res[i].category);
 
                 var classes = "labels "+light;
-                if(res[i].discounts.length){
+                if(res[i].discounts[0]){
                     content = res[i].title +'<br><span class="discount">'+ (res[i].discounts[0].description||'')+'</span>';
                     classes += ' has-sale';
                 }
