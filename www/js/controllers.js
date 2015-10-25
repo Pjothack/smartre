@@ -120,7 +120,7 @@ angular.module('starter.controllers', [])
                       html: content                       
                     });
 
-                    animateCircle(i);
+                    animateCircle(i,rand);
                     
 
                     google.maps.event.addListener(marker, 'click', function() {
@@ -135,7 +135,7 @@ angular.module('starter.controllers', [])
       };
       $scope.categories = Categories.all();
 
-      var animateCircle = function(id){
+      var animateCircle = function(id, rand){
          $timeout(function(){
             document.getElementById('circle_'+id).style.strokeDashoffset = (100-rand);
          },500);

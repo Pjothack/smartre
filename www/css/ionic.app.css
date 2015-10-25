@@ -9355,7 +9355,7 @@ svg.progress {
   stroke-dasharray: 100;
   /* this value is the pixel crcumference of the circle */
   stroke-dashoffset: 100;
-  transition: stroke-dashoffset 0.3s ease;
+  transition: stroke-dashoffset 0.9s ease;
   stroke: #cadcfc;
   stroke-width: 2; }
 
