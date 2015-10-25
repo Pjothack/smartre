@@ -46,7 +46,7 @@
 .button-toggle {
   &:before {
     transform: rotate(0);
-    transition:transform 0.15s ease;
+    transition:transform 0.25s cubic-bezier(.87,-.41,.19,1.44);
   }
   &.open:before {
     transform: rotate(-180deg);
