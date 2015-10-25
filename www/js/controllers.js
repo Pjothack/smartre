@@ -107,7 +107,7 @@ angular.module('starter.controllers', [])
                   var className = "labels "+light;
                   // sale class, should come from markers[i].sale or something
                   if(res[i].discounts[0]){
-                    content = res[i].title +'<br>'+ res[i].discounts[0].description +'<br>' +res[i].description;
+                    content = res[i].title +'<br><span class="discount">'+ res[i].discounts[0].description+'</span>';
                     className += ' has-sale';
                     }
                   // Get center
