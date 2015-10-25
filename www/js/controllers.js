@@ -61,9 +61,15 @@ angular.module('starter.controllers', [])
       };
 
       var markers = [];
+      var markerObj = [];
       var infowindow = null;
-
+      var clearMarkers = function(){
+        _.map(markerObj,function(item){
+          item.setMap(null);
+        })
+      }
       var searchLocations = function() {
+        clearMarkers();
         var tag = Categories.getActive();
         $http({
           method: 'GET',
@@ -76,6 +82,7 @@ angular.module('starter.controllers', [])
             var res = response.data;
             var rand;
             markers = [];
+            markerObj = [];
             infowindow = new google.maps.InfoWindow({
                   content: "content"
             });
@@ -119,10 +126,9 @@ angular.module('starter.controllers', [])
                       labelClass: className,
                       html: content                       
                     });
-
+                    markerObj.push(marker);
                     animateCircle(i,rand);
                     
-
                     google.maps.event.addListener(marker, 'click', function() {
                       infowindow.setContent(this.html)
                       infowindow.open($scope.map,this);
@@ -137,7 +143,9 @@ angular.module('starter.controllers', [])
 
       var animateCircle = function(id, rand){
          $timeout(function(){
+          if(document.getElementById('circle_'+id)){
             document.getElementById('circle_'+id).style.strokeDashoffset = (100-rand);
+          }
          },500);
       }
 
